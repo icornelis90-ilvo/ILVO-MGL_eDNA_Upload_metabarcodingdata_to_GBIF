@@ -16,7 +16,7 @@ Add the values you want to add in GBIF, such as target sequence, used primers an
 1. OTU_table:\
 ASV table containing the unrarefied and concatenated data after decontamination of the contaminant ASVs\
 Rows are the ASVs and the Columns are the samples\
-The last 11 columns contain the taxonomic classification, ASV-name, and the results after taxonomic assignment with DADA2 and BLASTn against the costumn reference database and BLASTn against GenBank
+The first columns contain the taxonomic classification, ASV-name, and the results after taxonomic assignment with DADA2 and BLASTn against the costumn reference database and BLASTn against GenBank
 2. ASVs:\
 Table, generated while running DADA2, that contains all the:\
 &emsp; - ASV-names (names)\

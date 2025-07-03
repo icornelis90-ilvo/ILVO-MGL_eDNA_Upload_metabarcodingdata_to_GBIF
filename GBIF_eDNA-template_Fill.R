@@ -1,5 +1,5 @@
 ###### Isolde Cornelis
-###### 11/04/2024
+###### 03/07/2025
 ###### Create the template file to upload data to the from eDNA metabarcoding to GBIF
 
 #!/usr/bin/env Rscript

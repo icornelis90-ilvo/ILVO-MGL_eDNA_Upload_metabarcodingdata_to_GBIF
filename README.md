@@ -1,7 +1,10 @@
 # eDNA_metabarcoding_Upload-to-GBIF
 
 ## Description
-This script allows you to create the dataset file, in excel format, needed to upload eDNA metabarcoding data into the Metabarcoding Data Toolkit (MDT) (https://mdt.gbif.org) to publish DNA metabarcoding data to the Global Biodiversity Information Facility (GBIF). The template file consists of 4 sheets:
+This script can be used for eDNA metabarcoding data generated using the DADA2 pipeline (Callahan et al., 2016) from v.1.20.0 onwards. Taxonomic assignment has been done using an in-house RScript, combining the results from the taxonomic assignment using the RDP classifier in DADA2 (bootstrap min 80) and BLASTn against a custom reference database, and BLASTn against the nucleotide collection from the National Center for Biotechnology Information (NCBI). The demultiplexed and trimmed sequencing data and sample metadata are uploaded onto the Sequence Read Archive (SRA) using the MIMARKS template for Biosample registration.
+
+The script allows you to create the dataset file, in excel format, needed to upload eDNA metabarcoding data into the Metabarcoding Data Toolkit (MDT) (https://mdt.gbif.org) to publish DNA metabarcoding data to the Global Biodiversity Information Facility (GBIF).\
+The template file, in excel format, consists of 4 sheets:
 * Sheet1 = OTU_table\
 Contains the OTU or ASV (OUT/ASV) table, in which each row must represent a unique OTU/ASV, and each column must represent a different sample or site, with the cell values indicating the count of sequencing reads of the OTUs/ASVs in each sample. The OTU/ASV table will be linked to two other tables:\
 &emsp; - table Taxonomy through the column id, containing the OTU/ASV names\
@@ -24,7 +27,7 @@ This table is generated while running the DADA2 pipeline and contains:\
 &emsp; - ASV-sequences (dnas)\
 &emsp; - ASV-lengths (len)
 3. Attributes_Full: [Example File: Attributes_NJ2021_12S.xlsx](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/Input_files/Attributes_NJ2021_12S.xlsx)\
-The complete MIMARKS Survey related template for water samples (MIMARKS: survey, water; version 6.0, https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/MIMARKS.survey.water.6.0.xlsx) used to upload the sequencing data to SRA on NCBI (National Center for Biotechnology Information).
+The complete MIMARKS Survey related template for water samples (MIMARKS: survey, water; version 6.0, https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/MIMARKS.survey.water.6.0.xlsx) used to upload the sequencing data to SRA on NCBI.
 4. SRR:\
 The metadata file containing the BioSample accession and SRR accession numbers, which can be downloaded from NCBI (https://www.ncbi.nlm.nih.gov/). A detailed explanation can be found in the [PDF-file How-to-download-the-RunMetadata](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/How-to-download-the-RunMetadata.pdf). In short, there are two methods for downloading the metadata.\
 <ins>Option 1:</ins> [Example File: SraRunInfo_NJ2021_Option1-File.csv](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/Input_files/SraRunInfo_NJ2021_Option1-File.csv) \
@@ -48,6 +51,7 @@ First a list is created in which all four tables are saved under the correct MDT
 
 ## Upload to GBIF
 Use the created template file to upload the eDNA metabarcoding data to https://edna-tool.gbif-uat.org/. More information about uploading the data can be found on: https://docs.gbif-uat.org/edna-tool-guide/en
+
 
 
 

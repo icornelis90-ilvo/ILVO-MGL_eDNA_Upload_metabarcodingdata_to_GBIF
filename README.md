@@ -26,7 +26,7 @@ This table is generated while running the DADA2 pipeline and contains:\
 3. Attributes_Full: [Example File: Attributes_NJ2021_12S.xlsx](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/Input_files/Attributes_NJ2021_12S.xlsx)\
 The complete MIMARKS Survey related template for water samples (MIMARKS: survey, water; version 6.0, https://www.ncbi.nlm.nih.gov/biosample/docs/templates/packages/MIMARKS.survey.water.6.0.xlsx) used to upload the sequencing data to SRA on NCBI (National Center for Biotechnology Information).
 4. SRR:\
-The metadata file containing the BioSample accession and SRR accession numbers, which can be downloaded from NCBI (https://www.ncbi.nlm.nih.gov/). There are two methods for downloading the metadata.\
+The metadata file containing the BioSample accession and SRR accession numbers, which can be downloaded from NCBI (https://www.ncbi.nlm.nih.gov/). A detailed explanation can be found in the [PDF-file How-to-download-the-RunMetadata](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/How-to-download-the-RunMetadata.pdf). In short, there are two methods for downloading the metadata.\
 <ins>Option 1:</ins> [Example File: SraRunInfo_NJ2021_Option1-File.csv](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/Input_files/SraRunInfo_NJ2021_Option1-File.csv) \
 If you want to download the metadata from all the submissions in the BioProject, select the SRA database, enter the BioProject accession number in the Entrez query and click search. Then, click **Send to** on the top of the page, check the **File** radiobutton, and select **RunInfo** in the pull-down menu. This will generate a tabular **SraRunInfo.csv** file with metadata available for each Run within the BioProject of interest.\
 <ins>Option 2:</ins> [Example File: SraRunTable_NJ2021_Option2-RunSelector.csv](https://github.com/icornelis90-ilvo/ILVO-MGL_eDNA_Upload_metabarcodingdata_to_GBIF/blob/main/Input_files/SraRunTable_NJ2021_Option2-RunSelector.csv) \
@@ -48,6 +48,7 @@ First a list is created in which all four tables are saved under the correct MDT
 
 ## Upload to GBIF
 Use the created template file to upload the eDNA metabarcoding data to https://edna-tool.gbif-uat.org/. More information about uploading the data can be found on: https://docs.gbif-uat.org/edna-tool-guide/en
+
 
 
 

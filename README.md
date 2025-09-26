@@ -1,9 +1,9 @@
-# eDNA_metabarcoding_Upload-to-GBIF
+# eDNA_Upload_metabarcodingdata_to_GBIF
 
 ## Description
-The script can be used for eDNA metabarcoding data generated using the DADA2 pipeline (Callahan et al., 2016) from v.1.20.0 onwards. Taxonomic assignment has been done using an in-house RScript, combining the results from the taxonomic assignment using the RDP classifier in DADA2 (bootstrap min 80) and BLASTn against a custom reference database, and BLASTn against the nucleotide collection from the National Center for Biotechnology Information (NCBI). The demultiplexed and trimmed sequencing data and sample metadata are uploaded onto the Sequence Read Archive (SRA) using the MIMARKS template for Biosample registration.
+The script GBIF_eDNA-template_Fill.R can be used to fill the GBIF template for eDNA metabarcoding data generated using the DADA2 pipeline (Callahan et al., 2016) from v.1.20.0 onwards. Taxonomic assignment has been done in three steps using an in-house RScript, combining the results from 1/ the taxonomic assignment using the RDP classifier in DADA2 (bootstrap min 80) and 2/ BLASTn against a custom reference database, and 3/BLASTn against the nucleotide collection from the National Center for Biotechnology Information (NCBI). The demultiplexed and trimmed sequencing data and sample metadata are uploaded to the Sequence Read Archive (SRA) using the MIMARKS template for Biosample registration.
 
-This script allows you to create the dataset file, in excel format, needed to upload eDNA metabarcoding data into the Metabarcoding Data Toolkit (MDT) (https://mdt.gbif.org) to publish DNA metabarcoding data to the Global Biodiversity Information Facility (GBIF).\
+This script creates the in excel file, needed to upload eDNA metabarcoding data into the Metabarcoding Data Toolkit (MDT) (https://mdt.gbif.org) to publish DNA metabarcoding data to the Global Biodiversity Information Facility (GBIF).\
 The template file, in excel format, consists of 4 sheets:
 * Sheet1 = OTU_table\
 Contains the OTU or ASV (OUT/ASV) table, in which each row must represent a unique OTU/ASV, and each column must represent a different sample or site, with the cell values indicating the count of sequencing reads of the OTUs/ASVs in each sample. The OTU/ASV table will be linked to two other tables:\
@@ -51,6 +51,7 @@ First a list is created in which all four tables are saved under the correct MDT
 
 ## Upload to GBIF
 Use the created template file to upload the eDNA metabarcoding data to https://edna-tool.gbif-uat.org/. More information about uploading the data can be found on: https://docs.gbif-uat.org/edna-tool-guide/en
+
 
 
 

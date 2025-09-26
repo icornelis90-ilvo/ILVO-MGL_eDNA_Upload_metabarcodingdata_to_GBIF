@@ -18,15 +18,17 @@ proj.path.GBIF <- here("/home/genomics/icornelis/07_GBIF/02_Uploading Files/")
 proj.path.data <- here("/home/genomics/icornelis/07_GBIF/03_Input Files/")
 
 ### upload data
-## OTU-tables and taxa (standard files created by the dada2 pipeline)
+# OTU-tables and taxa (standard files created by the dada2 pipeline)
 OTU_table <- readxl::read_excel(paste0(proj.path.data,"table_unrarefied_concatenated_CleanedASVs_WithField_FullTaxonomicAssignment.xlsx"))
 ASVs <- read.table(paste0(proj.path.data,"asvs.tsv"), header = T)
 
 ## samples
-#The MIMARCKS file created to upload data to NCBI
+# The MIMARCKS file created to upload data to NCBI
 Attributes_Full <- readxl::read_excel(paste0(proj.path.data,"Attributes_NJ2021_12S.xlsx"))
-#file to be downloaded from bioproject through "download metadata file with SRA accessions"
-SRR <- readxl::read_excel(paste0(proj.path.data,"SRRcodes_NJ2021_12S.xlsx"))
+#file to be downloaded from NCBI 
+SRR <- read.csv(paste0(proj.path.data,"SraRunInfo_NJ2021_Option1-File.csv"), header = T, sep = ";") #Option1
+#SRR <- read.csv(paste0(proj.path.data,"SraRunTable_NJ2021_Option2-RunSelector.csv"), header = T, sep = ";") %>%  #Option2
+  rename("SampleName" = "Sample.Name")
 
 ###Get data
 ##OTU_table
@@ -57,10 +59,7 @@ taxa <- OTU_table %>%
   relocate(c(DNA_sequence, len), .before = Kingdom)
 
 ##samples
-SRR <- SRR %>%
-  #create a new column "*sample_name" containing the file name without the extension _1.bz
-  mutate(`*sample_name` = str_replace(SRR$filename, "_1.bz2", ""))
-
+#Adjust the Attributes table
 Attributes <- Attributes_Full %>%
   #add colnames to the Attribute table (row 11)
   scrutiny::row_to_colnames(11) %>%
@@ -68,21 +67,21 @@ Attributes <- Attributes_Full %>%
   filter(!is.na(sample_title)) %>%
   #remove empty columns from the Attribute table
   select_if(function(x) !(all(is.na(x)))) %>%
-  #change the colname of *collection_date to "eventDate"
+  #change the colname of "*collection_date" to "eventDate"
   rename(eventDate = `*collection_date`) %>%
-  #group_by *sample_name to consider each name separately
+  #group_by "*sample_name" to consider each name separately
   group_by(`*sample_name`) %>%
   #Add the SRR and biosample accession numbers from NCBI to the attributes table
-  mutate(materialSampleID = ifelse(`*sample_name` %in% SRR$`*sample_name`,
-                                   SRR$biosample_accession[which(SRR$`*sample_name`==`*sample_name`)],
+  mutate(materialSampleID = ifelse(`*sample_name` %in% SRR$`SampleName`,
+                                   SRR$BioSample[which(SRR$`SampleName`==`*sample_name`)],
                                    ""),
-         SRR_accession = ifelse(`*sample_name` %in% SRR$`*sample_name`,
-                               SRR$accession[which(SRR$`*sample_name`==`*sample_name`)],
+         SRR_accession = ifelse(`*sample_name` %in% SRR$`SampleName`,
+                               SRR$Run[which(SRR$`SampleName`==`*sample_name`)],
                                "")) %>%
   ungroup() %>%
   mutate(SRR_link = ifelse(SRR_accession == "", 
                            "",
-                           paste("https://www.ncbi.nlm.nih.gov/sra/?term=",
+                           paste("https://www.ncbi.nlm.nih.gov/sra/",
                                  SRR_accession,
                                  sep="")), #add ncbi link to the reads
          SAMN_link = ifelse(materialSampleID == "", 
@@ -122,31 +121,38 @@ samples <- Attributes %>%
                                     "",
                                     materialSampleID))
 
-##defaultValue
+##Study
 defaultValue <- data.frame(
   #add the terms that need to be filled in in GBIF
-  term = c("env_medium",
+  term = c("env_broad_scale",
+           "env_medium",
            "target_gene",
            "pcr_primer_forward",
            "pcr_primer_name_forward",
            "pcr_primer_reverse",
            "pcr_primer_name_reverse",
            "seq_meth",
+           "lib_layout",
+           "otu_class_appr",
+           "otu_seq_comp_appr",
            "otu_db"),
   #add the values to be filled in for each term (adjust where needed for your data)
-  value = c("seawater",
-            "12S",
+  value = c("marine biome",
+            "seawater",
+            "12S rRNA",
             "5’-GT(C/T)GGTAAA(A/T)CTCGTGCCAGC-3’",
             "MiFish_U/E_F",
             "5’-CATAGTGGGGTATCTAATCC(C/T)AGTTTG-3’",
             "MiFish_U/E_R",
             "Illumina MiSeq",
+            "Paired",
+            "dada2;1.14.0;ASV",
+            "blastn;2.6.0+ | assignTaxonomy;dada2;1.14.0",
             "custom made reference database"))
-
+            
 ### Save the data into one file
-list_of_datasets <- list("OTUtable" = OTU,
-                         "taxa" = taxa,
-                         "samples" = samples,
-                         "defaultValue" = defaultValue)
+list_of_datasets <- list("OTU_table" = OTU,
+                         "Taxonomy" = taxa,
+                         "Samples" = samples,
+                         "Study" = defaultValue)
 openxlsx::write.xlsx(list_of_datasets, paste0(proj.path.GBIF,"/edna_template_filled.xlsx"), colNames = T)
-

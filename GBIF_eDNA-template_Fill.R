@@ -28,7 +28,7 @@ Attributes_Full <- readxl::read_excel(paste0(proj.path.data,"Attributes_NJ2021_1
 #file to be downloaded from NCBI 
 SRR <- read.csv(paste0(proj.path.data,"SraRunInfo_NJ2021_Option1-File.csv"), header = T, sep = ";") #Option1
 #SRR <- read.csv(paste0(proj.path.data,"SraRunTable_NJ2021_Option2-RunSelector.csv"), header = T, sep = ";") %>%  #Option2
-  rename("SampleName" = "Sample.Name")
+  #rename("SampleName" = "Sample.Name")
 
 ###Get data
 ##OTU_table

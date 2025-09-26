@@ -11,8 +11,8 @@ library(stringr)
 library(here)
 
 ### make paths
-proj.path.GBIF <- here("/home/genomics/icornelis/07_GBIF/02_Uploading Files/")
-proj.path.data <- here("/home/genomics/icornelis/07_GBIF/03_Input Files/")
+proj.path.GBIF <- here("/home/genomics/icornelis/07_GBIF/02_Uploading-Files/")
+proj.path.data <- here("/home/genomics/icornelis/07_GBIF/03_Input-Files/")
 
 ### upload data
 # OTU-tables and taxa (standard files created by the dada2 pipeline)

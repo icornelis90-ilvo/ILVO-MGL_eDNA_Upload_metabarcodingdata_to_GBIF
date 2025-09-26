@@ -2,10 +2,7 @@
 ###### 03/07/2025
 ###### Create the template file to upload data to the from eDNA metabarcoding to GBIF
 
-#!/usr/bin/env Rscript
-if(.Platform$OS.type == "unix"){home<-"/home/"} else{
-  home<-"//192.168.236.131/"}
-
+### activate libraries
 library(vegan)
 library(seqRFLP)
 library(dplyr)
